@@ -2,6 +2,13 @@ module.exports ={
   publicPath:'./',
   outputDir:'serve',
   pages:{
+    main:{
+        entry: 'src/main.js',
+        template: 'public/index.html',
+        filename: 'index.html',
+        title: 'main',
+        chunks: ['chunk-vendors', 'chunk-common', 'main']
+    },
     task:{
        entry: 'src/entrys/task.js',
        template: 'public/index.html',
