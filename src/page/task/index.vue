@@ -1,15 +1,26 @@
 <template>
   <div class="task">
+    <div class="header">
+      <div class="coinDetails">
+        <span class="myCoin">我的金币</span>
+        <span class="coindetail">金币明细</span>
+      </div>
+      <div class="coinImg">
+          <img class="coinLeft" src="../../assets/coinLeft.png" />
+          <span class="myCoinNum">{{myCoin}}</span>
+          <img class="coinRight" src="../../assets/coinRight.png" />
+      </div>
+    </div>
     <div class="signBlock">
       <p class="signText">
         已签到{{signNum}}天
-        <span class="signTip">（连续签到翻倍金币哦）</span>
+        <span class="signTip1">（连续签到翻倍金币哦）</span>
       </p>
       <div class="coinItems">
         <div v-for="(item, index) in coin" :key="index" class="coinItem">
-          <img />
+          <img src="../../assets/coin1.png" style="    position: absolute;"/>
           <span class="coinText1">{{item.text1}}</span>
-          <p class="signTip">{{item.text2}}</p>
+          <p class="signTip2">{{item.text2}}</p>
         </div>
       </div>
       <div class="signBtn">立即签到</div>
@@ -117,7 +128,8 @@ export default {
                     coinNum: 200,
                     btnText: '领取'
                 }
-            ]
+            ],
+            myCoin: '1000'
         }
     },
 };
@@ -130,6 +142,50 @@ export default {
         padding-top: 13rem;
         padding-bottom: 5rem;
     }
+    .header {
+        position: absolute;
+        top: 14px;
+        left: 43px;
+        width: 80%;
+    }
+    .coinDetails {
+        display: flex;
+        justify-content: space-between;
+    }
+    .coinImg {
+        margin-top: 15px;
+    }
+    .myCoin {
+        font-family: PingFang SC;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        color: #FFFFFF;
+    }
+    .coindetail {
+        font-family: PingFang SC;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        color: #FFFFFF;
+    }
+    .coinLeft {
+        width: 50px;
+        margin-bottom: -8px;
+            margin-left: -7px;
+    }
+    .myCoinNum {
+        font-family: PingFang SC;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 40px;
+        color: #FFFFFF;
+    }
+    .coinRight {
+        width: 100px;
+        margin-bottom: -24px;
+        margin-left: 60px;
+    }
     .signBlock {
         background: #FFFFFF;
         border-radius: 12px;
@@ -139,18 +195,26 @@ export default {
         font-size: 1.6rem;
         margin-bottom: 1.8rem;
     }
-    .signTip {
+    .signTip1 {
         font-size: 1.2rem;
         color: #a7abb3;
         vertical-align: text-bottom;
     }
+    .signTip2 {
+        font-size: 1.2rem;
+        color: #a7abb3;
+        vertical-align: text-bottom;
+        position: absolute;
+        top: 33px;
+        width: 3rem;
+    }
     .coinItems {
         display: flex;
         justify-content: space-between;
-        
     }
     .coinItem {
         position: relative;
+        text-align: center;
     }
     .coinText1 {
         position: absolute;
@@ -170,7 +234,7 @@ export default {
         height: 3.6rem;
         text-align: center;
         margin: auto;
-        margin-top: 2.2rem;
+        margin-top: 6.2rem;
     }
 
     .noviceBlock {
