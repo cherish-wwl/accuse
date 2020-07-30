@@ -43,9 +43,6 @@ export default {
 </script>
 
 <style scoped>
-  .coin-detail {
-
-  }
   .detail-item {
       display: flex;
       padding: 1.6rem;

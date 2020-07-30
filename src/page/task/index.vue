@@ -3,7 +3,7 @@
     <div class="header">
       <div class="coinDetails">
         <span class="myCoin">我的金币</span>
-        <span class="coindetail">金币明细</span>
+        <span class="coindetail"><router-link to="coinDetail.html">金币明细</router-link></span>
       </div>
       <div class="coinImg">
           <img class="coinLeft" src="../../assets/coinLeft.png" />
@@ -18,7 +18,7 @@
       </p>
       <div class="coinItems">
         <div v-for="(item, index) in coin" :key="index" class="coinItem">
-          <img src="../../assets/coin1.png" style="    position: absolute;"/>
+          <!-- <img src="../../assets/coin1.png" style="    position: absolute;"/> -->
           <span class="coinText1">{{item.text1}}</span>
           <p class="signTip2">{{item.text2}}</p>
         </div>
@@ -162,7 +162,7 @@ export default {
         font-size: 15px;
         color: #FFFFFF;
     }
-    .coindetail {
+    .coindetail ,.coindetail a{
         font-family: PingFang SC;
         font-style: normal;
         font-weight: normal;
@@ -204,23 +204,28 @@ export default {
         font-size: 1.2rem;
         color: #a7abb3;
         vertical-align: text-bottom;
-        position: absolute;
-        top: 33px;
-        width: 3rem;
+        /* position: absolute; */
+        /* top: 33px; */
+        /* width: 3rem; */
     }
     .coinItems {
         display: flex;
         justify-content: space-between;
     }
     .coinItem {
-        position: relative;
+        /* position: relative; */
         text-align: center;
+
     }
     .coinText1 {
-        position: absolute;
-        width: 3rem;
+        display: inline-block;
         color: #FBBF64;
+        background: url('../../assets/coin1.png') no-repeat;
+        width: 3rem;
+        height: 3rem;
+        line-height: 3rem;
     }
+    
     .signBtn {
         background: linear-gradient(90deg, #FF9500 0%, #FFDE6E 100%);
         border-radius: 60px;
@@ -234,7 +239,7 @@ export default {
         height: 3.6rem;
         text-align: center;
         margin: auto;
-        margin-top: 6.2rem;
+        margin-top: 2.2rem;
     }
 
     .noviceBlock {
