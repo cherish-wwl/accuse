@@ -27,15 +27,17 @@
           <input type="text" class="input-phone" placeholder="请输入联系电话/QQ/微信/邮箱" v-model="phone">
         </div>
       </div>
-      <div class="submit-btn" @click="submit" :class="isDisabled ? 'opa5' : ''">提交{{isDisabled}}</div>
+      <div class="submit-btn" @click="submit" :class="isDisabled ? 'opa5' : ''">提交</div>
     </div>
   </div>
   <problem-scene v-else @selectProFun="selectProFun"></problem-scene>
+  <pop-up :textMap="textMap" :time="2" v-if="showDialog"></pop-up>
 </div>
 </template>
 
 <script>
   import problemScene from './component/problemScene'
+  import popUp from '../../components/popUp'
   export default {
     data() {
       return {
@@ -45,10 +47,16 @@
         text1: '',
         text2: '',
         fileList: [],
+        textMap: {
+          text1: '感谢您提供的反馈',
+          text2: '处理完会通知你哟~'
+        },
+        showDialog: false
       }
     },
     components: {
-      problemScene
+      problemScene,
+      popUp
     },
     computed: {
       isDisabled() {
@@ -95,6 +103,7 @@
         if (this.isDisabled) {
           return
         }
+        this.showDialog = true
         console.log('TTT', this.fileList)
       }
     }

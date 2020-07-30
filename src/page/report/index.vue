@@ -31,9 +31,11 @@
       <button class="btnSubmit" @click="submit">提交</button>
     </article>
     <div class="standardText">了解速播社区规范 <span style="color: #D5DBE6;"> ></span></div>
+    <pop-up :textMap="textMap" :time="2" v-if="showDialog"></pop-up>
   </div>
 </template>
 <script>
+import popUp from '../../components/popUp'
 export default {
   data() {
     return {
@@ -50,8 +52,16 @@ export default {
       ],
       commonLiItem: [],
       fileList: [],
-      text: ''
+      text: '',
+      textMap: {
+        text1: '举报成功',
+        text2: '我们会尽快处理哒~'
+      },
+      showDialog: false
     }
+  },
+  components: {
+    popUp
   },
   methods: {
     chooseImage() {
@@ -82,6 +92,7 @@ export default {
     },
     submit() {
       console.log(this.commonLiItem)
+      this.showDialog = true
     }
   }
 };
