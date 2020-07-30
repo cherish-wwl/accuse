@@ -2,11 +2,11 @@
   <div class="coin-detail">
       <div v-for="(item, index) in detailDataList" :key="index" class="detail-item">
           <div class="col1">
-              <p class="col1Title">{{item.text}}</p>
+              <p class="col1Title">{{item.title}}</p>
               <p class="col1text">{{item.date}}</p>
           </div>
           <div class="col2">
-              +{{item.coinNum}}金币
+              {{item.describe}}
           </div>
       </div>
   </div>
@@ -39,6 +39,17 @@ export default {
           ]
         }
     },
+    mounted() {
+      this.getRecord()
+    },
+    methods: {
+      getRecord() {
+        this.$get(this.API['record']).then(res => {
+          console.log(res)
+          this.detailDataList = res.data.data
+        })
+      }
+    }
 };
 </script>
 

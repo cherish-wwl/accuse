@@ -3,7 +3,7 @@
     <div class="header">
       <div class="coinDetails">
         <span class="myCoin">我的金币</span>
-        <span class="coindetail"><router-link to="coinDetail.html">金币明细</router-link></span>
+        <span class="coindetail"><router-link to="coinDetail.html" @click="turnToCoinDetail">金币明细</router-link></span>
       </div>
       <div class="coinImg">
           <img class="coinLeft" src="../../assets/coinLeft.png" />
@@ -32,27 +32,27 @@
                 <img style="height: 32px;width: 32px;background-color:#ccc" />
             </div>
             <div class="noviceCol2">
-                <p class="col2Title">{{item.title}}</p>
-                <p class="col2text"><span class="col2CoinNum">+{{item.coinNum}}</span>金币</p>
+                <p class="col2Title">{{item.title}}({{item.schedule.achieve}}/{{item.schedule.total}})</p>
+                <p class="col2text"><span class="col2CoinNum">+{{item.score}}</span>金币</p>
             </div>
             <div class="noviceCol3">
-                {{item.btnText}}
+                {{item.status | swichStatus}}
                 <!-- <span class="col3Btn"></span> -->
             </div>
         </div>
     </div>
     <div class="everydayBlock">
-        <p class="taskTitle">新手任务</p>
-        <div v-for="(item, index) in noviceDataList" :key="index" class="taskItems">
+        <p class="taskTitle">每日任务</p>
+        <div v-for="(item, index) in everydayDataList" :key="index" class="taskItems">
             <div class="noviceCol1">
                 <img style="height: 32px;width: 32px;background-color:#ccc" />
             </div>
             <div class="noviceCol2">
-                <p class="col2Title">{{item.title}}</p>
-                <p class="col2text"><span class="col2CoinNum">+{{item.coinNum}}</span>金币</p>
+                <p class="col2Title">{{item.title}}({{item.schedule.achieve}}/{{item.schedule.total}})</p>
+                <p class="col2text"><span class="col2CoinNum">+{{item.score}}</span>金币</p>
             </div>
-            <div class="noviceCol3">
-                {{item.btnText}}
+            <div class="noviceCol3" :style="{opacity: (isClick ? '1' : '0.5')}" @click="completeTask">
+                {{item.status | swichStatus}}
                 <!-- <span class="col3Btn"></span> -->
             </div>
         </div>
@@ -129,17 +129,46 @@ export default {
                     btnText: '领取'
                 }
             ],
-            myCoin: '1000'
+            myCoin: '1000',
+            isClick: false
+        }
+    },
+    filters: {
+        swichStatus(val) {
+            switch (val) {
+                case 0: 
+                    this.isClick = true
+                    return '去完成'
+                case 1: 
+                    this.isClick = true
+                    return '领取'
+                case 2: 
+                    this.isClick = false
+                    return '已完成'
+            }
         }
     },
     mounted() {
         this.signCalendar()
     },
     methods: {
+        turnToCoinDetail() {
+            this.$router.push({name: 'coinDetail'})
+        },
         signCalendar() {
             this.$get(this.API['signCalendar']).then(res => {
                 console.log(res)
             })
+        },
+        getTaskList() {
+            this.$get(this.API['taskList']).then(res => {
+                console.log(res)
+                this.noviceDataList = res.data.noob_task
+                this.everydayDataList = res.data.daily_task
+            })
+        },
+        completeTask() {
+            console.log('QQQ')
         }
     }
 };

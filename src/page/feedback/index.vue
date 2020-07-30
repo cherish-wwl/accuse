@@ -105,7 +105,7 @@
         }
         this.showDialog = true
         console.log('TTT', this.fileList)
-      }
+      },
     }
   }
 </script>
