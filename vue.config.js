@@ -44,5 +44,16 @@ module.exports ={
       title: '举报',
       chunks: ['chunk-vendors', 'chunk-common', 'report']
    }
+  },
+  devServer: {
+    proxy: {
+      // proxy all requests starting with /api to jsonplaceholder
+      '': {
+        target: 'https://join.dev.fawo.cn',   //代理接口
+        secure:false,
+        ws:true,
+        changeOrigin: true,
+      }
+    }
   }
 }

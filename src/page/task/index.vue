@@ -132,6 +132,16 @@ export default {
             myCoin: '1000'
         }
     },
+    mounted() {
+        this.signCalendar()
+    },
+    methods: {
+        signCalendar() {
+            this.$get(this.API['signCalendar']).then(res => {
+                console.log(res)
+            })
+        }
+    }
 };
 </script>
 
