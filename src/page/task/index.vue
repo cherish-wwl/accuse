@@ -32,7 +32,7 @@
                 <img style="height: 32px;width: 32px;background-color:#ccc" />
             </div>
             <div class="noviceCol2">
-                <p class="col2Title">{{item.title}}({{item.schedule.achieve}}/{{item.schedule.total}})</p>
+                <p class="col2Title">{{item.title}}({{(item.schedule || {}).achieve}}/{{(item.schedule || {}).total}})</p>
                 <p class="col2text"><span class="col2CoinNum">+{{item.score}}</span>金币</p>
             </div>
             <div class="noviceCol3">
@@ -48,7 +48,7 @@
                 <img style="height: 32px;width: 32px;background-color:#ccc" />
             </div>
             <div class="noviceCol2">
-                <p class="col2Title">{{item.title}}({{item.schedule.achieve}}/{{item.schedule.total}})</p>
+                <p class="col2Title">{{item.title}}({{(item.schedule || {}).achieve}}/{{(item.schedule || {}).total}})</p>
                 <p class="col2text"><span class="col2CoinNum">+{{item.score}}</span>金币</p>
             </div>
             <div class="noviceCol3" :style="{opacity: (isClick ? '1' : '0.5')}" @click="completeTask">
