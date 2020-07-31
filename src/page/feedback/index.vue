@@ -47,6 +47,7 @@
         text1: '',
         text2: '',
         fileList: [],
+        files:[],
         textMap: {
           text1: '感谢您提供的反馈',
           text2: '处理完会通知你哟~'
@@ -72,6 +73,7 @@
         handler(val) {
           if (val.length > 4) {
             this.fileList.splice(4)
+            this.files.splice(4);
           }
         }
       }
@@ -82,13 +84,14 @@
       },
       changeImage(e) {
         Object.entries(e.target.files).map(([key, value]) => {
-          console.log(key)
+          console.log(key,value)
           var reader = new FileReader()
           var that = this
           reader.readAsDataURL(value)
           reader.onload = function(e) {
             console.log(e)
             that.fileList.push(this.result)
+            that.files.push(value)
           }
         })
       },
@@ -100,22 +103,28 @@
       },
       deleteImg(i) {
         this.fileList.splice(i, 1)
+        this.files.splice(i, 1)
       },
       submit() {
         if (this.isDisabled) {
           return
         }
-        console.log('TTT', this.fileList)
-        let params = {
-          type: this.type,
-          describe: this.text,
-          contact: this.phone,
-          // file: this.fileList
+        console.log('TTT', this.files)
+        let formData = new FormData();
+        formData.append('type',this.type)
+        formData.append('describe',this.text)
+        formData.append('contact',this.phone)
+        // formData.append(type,this.type)
+        // let params = {
+        //   type: this.type,
+        //   describe: this.text,
+        //   contact: this.phone,
+        //   // file: this.fileList
+        // }
+        for(let i = 0; i < this.files.length; i++) {
+           formData.append('file'+i, this.files[i])
         }
-        for(let i = 0; i < this.fileList.length; i++) {
-          params['file'+i] = this.fileList[i]
-        }
-        this.$post(this.API['feedback'], params).then(res => {
+        this.$post(this.API['feedback'], formData).then(res => {
           console.log(res.status)
           if (res.status === 0) {
             this.showDialog = true
