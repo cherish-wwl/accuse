@@ -16,26 +16,6 @@ export default {
     data() {
         return {
           detailDataList: [
-            {
-              text: '关注话题',
-              date: '2020/7/26',
-              coinNum: 100
-            },
-            {
-              text: '关注话题',
-              date: '2020/7/26',
-              coinNum: 100
-            },
-            {
-              text: '关注话题',
-              date: '2020/7/26',
-              coinNum: 100
-            },
-            {
-              text: '关注话题',
-              date: '2020/7/26',
-              coinNum: 100
-            }
           ]
         }
     },

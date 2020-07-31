@@ -20,7 +20,7 @@ instance.interceptors.response.use((config) => {
 export function post(url, data = {}) {
   console.log(data)
   return new Promise((resolve, reject) => {
-    instance.post(url, data = {}).then(res => {
+    instance.post(url, data).then(res => {
       if (res.data) {
         resolve(res.data)
       }

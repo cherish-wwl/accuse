@@ -51,7 +51,8 @@
           text1: '感谢您提供的反馈',
           text2: '处理完会通知你哟~'
         },
-        showDialog: false
+        showDialog: false,
+        type: 0
       }
     },
     components: {
@@ -60,7 +61,7 @@
     },
     computed: {
       isDisabled() {
-        return !(this.text || (this.text1 || this.fileList.length) || this.phone)
+        return !(this.text1 && (this.text || this.fileList.length > 0 || this.phone))
       },
       isShowInput() {
         return !(this.fileList.length > 3)
@@ -91,10 +92,12 @@
           }
         })
       },
-      selectProFun(text1, text2) {
+      selectProFun(text1, text2, type) {
         this.showScene = false
         this.text1 = text1
         this.text2 = text2
+        this.type = type
+        console.log('AA', this.type)
       },
       deleteImg(i) {
         this.fileList.splice(i, 1)
@@ -103,8 +106,19 @@
         if (this.isDisabled) {
           return
         }
-        this.showDialog = true
         console.log('TTT', this.fileList)
+        let params = {
+          type: this.type,
+          describe: this.text,
+          contact: this.phone,
+          file: this.fileList
+        }
+        this.$post(this.API['feedback'], params).then(res => {
+          console.log(res.status)
+          if (res.status === 0) {
+            this.showDialog = true
+          }
+        })
       },
     }
   }

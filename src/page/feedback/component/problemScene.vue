@@ -2,7 +2,7 @@
   <div class="problem-scene">
     <p class="title">请选择问题发生场景</p>
     <div class="pro-items">
-      <p v-for="(item, index) in prolist" :key="index" class="pro-item" @click="selectPro(item.text1, item.text2)">
+      <p v-for="(item, index) in prolist" :key="index" class="pro-item" @click="selectPro(item.text1, item.text2, item.type)">
         {{item.text1}}
         <span class="text2">{{item.text2}}</span>
       </p>
@@ -16,46 +16,55 @@ export default {
       prolist: [
         {
           text1: '浏览内容相关',
-          text2: '(如能提供截图能更快的解决问题)'
+          text2: '(如能提供截图能更快的解决问题)',
+          type: 1
         },
         {
           text1: '登录/注册相关',
-          text2: '(填写联系方式能更快的解决问题)'
+          text2: '(填写联系方式能更快的解决问题)',
+          type: 2
         },
         {
           text1: '无法分享/分享被屏蔽相关',
-          text2: ''
+          text2: '',
+          type: 3
         },
         {
           text1: '消息推送相关',
-          text2: ''
+          text2: '',
+          type: 4
         },
         {
           text1: '卡顿/闪退相关',
-          text2: ''
+          text2: '',
+          type: 5
         },
         {
           text1: '评论/收藏/点赞/关注相关',
-          text2: ''
+          text2: '',
+          type: 6
         },
         {
           text1: '广告相关',
-          text2: ''
+          text2: '',
+          type: 7
         },
         {
           text1: '金币相关',
-          text2: ''
+          text2: '',
+          type: 8
         },
         {
           text1: '其他',
-          text2: ''
+          text2: '',
+          type: 9
         },
       ]
     }
   },
   methods: {
-    selectPro(text1, text2) {
-      this.$emit('selectProFun', text1, text2)
+    selectPro(text1, text2, type) {
+      this.$emit('selectProFun', text1, text2, type)
     }
   }
 }

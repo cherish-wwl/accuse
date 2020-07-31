@@ -13,14 +13,14 @@
     </div>
     <div class="signBlock">
       <p class="signText">
-        已签到{{signNum}}天
+        {{signNum}}
         <span class="signTip1">（连续签到翻倍金币哦）</span>
       </p>
       <div class="coinItems">
         <div v-for="(item, index) in coin" :key="index" class="coinItem">
           <!-- <img src="../../assets/coin1.png" style="    position: absolute;"/> -->
-          <span class="coinText1">{{item.text1}}</span>
-          <p class="signTip2">{{item.text2}}</p>
+          <span class="coinText1" :class="item.is_sign ? 'coinText2' : 'coinText1'">{{item.is_double ? '翻倍' : item.score}}</span>
+          <p class="signTip2">{{item.is_today ? '今日' : item.title.slice(-2)}}</p>
         </div>
       </div>
       <div class="signBtn">立即签到</div>
@@ -35,9 +35,8 @@
                 <p class="col2Title">{{item.title}}({{(item.schedule || {}).achieve}}/{{(item.schedule || {}).total}})</p>
                 <p class="col2text"><span class="col2CoinNum">+{{item.score}}</span>金币</p>
             </div>
-            <div class="noviceCol3">
+            <div class="noviceCol3" :class="{opa1: item['status'] == 0, opa1: item['status'] == 1, opa5: item['status'] == 2}">
                 {{item.status | swichStatus}}
-                <!-- <span class="col3Btn"></span> -->
             </div>
         </div>
     </div>
@@ -51,9 +50,8 @@
                 <p class="col2Title">{{item.title}}({{(item.schedule || {}).achieve}}/{{(item.schedule || {}).total}})</p>
                 <p class="col2text"><span class="col2CoinNum">+{{item.score}}</span>金币</p>
             </div>
-            <div class="noviceCol3" :style="{opacity: (isClick ? '1' : '0.5')}" @click="completeTask">
+            <div class="noviceCol3" :class="{opa1: item['status'] == 0, opa1: item['status'] == 1, opa5: item['status'] == 2}" @click="completeTask">
                 {{item.status | swichStatus}}
-                <!-- <span class="col3Btn"></span> -->
             </div>
         </div>
     </div>
@@ -65,91 +63,30 @@ export default {
     data() {
         return {
             coin: [
-                {
-                    text1: 266,
-                    text2: '今日'
-                },
-                {
-                    text1: 366,
-                    text2: '2天'
-                },
-                {
-                    text1: 566,
-                    text2: '3天'
-                },
-                {
-                    text1: 666,
-                    text2: '4天'
-                },
-                {
-                    text1: 766,
-                    text2: '5天'
-                },
-                {
-                    text1: 866,
-                    text2: '6天'
-                },
-                {
-                    text1: '翻倍',
-                    text2: '7天'
-                },
             ],
             signNum: 0,
             noviceDataList: [
-                {
-                    title: '关注你喜欢的话题(0/1)',
-                    coinNum: 100,
-                    btnText: '已完成'
-                },
-                {
-                    title: '关注你喜欢的话题(0/1)',
-                    coinNum: 150,
-                    btnText: '去完成'
-                },
-                {
-                    title: '关注你喜欢的话题(0/1)',
-                    coinNum: 200,
-                    btnText: '领取'
-                }
             ],
             everydayDataList: [
-                {
-                    title: '关注你喜欢的话题(0/1)',
-                    coinNum: 100,
-                    btnText: '已完成'
-                },
-                {
-                    title: '关注你喜欢的话题(0/1)',
-                    coinNum: 150,
-                    btnText: '去完成'
-                },
-                {
-                    title: '关注你喜欢的话题(0/1)',
-                    coinNum: 200,
-                    btnText: '领取'
-                }
             ],
             myCoin: '1000',
-            isClick: false
         }
     },
     filters: {
         swichStatus(val) {
             switch (val) {
                 case 0: 
-                    this.isClick = true
                     return '去完成'
                 case 1: 
-                    this.isClick = true
                     return '领取'
                 case 2: 
-                    this.isClick = false
                     return '已完成'
             }
         }
     },
     mounted() {
         this.signCalendar()
+        this.getTaskList()
     },
     methods: {
         turnToCoinDetail() {
@@ -158,13 +95,16 @@ export default {
         signCalendar() {
             this.$get(this.API['signCalendar']).then(res => {
                 console.log(res)
+                this.signNum = res.data.aggregate
+                this.coin = res.data.calendar
             })
         },
         getTaskList() {
             this.$get(this.API['taskList']).then(res => {
-                console.log(res)
+                console.log('QQQ', res)
                 this.noviceDataList = res.data.noob_task
                 this.everydayDataList = res.data.daily_task
+                console.log(this.noviceDataList,this.everydayDataList )
             })
         },
         completeTask() {
@@ -259,7 +199,17 @@ export default {
     .coinText1 {
         display: inline-block;
         color: #FBBF64;
+        font-weight: normal;
         background: url('../../assets/coin1.png') no-repeat;
+        width: 3rem;
+        height: 3rem;
+        line-height: 3rem;
+    }
+    .coinText2 {
+        display: inline-block;
+        color: #FFF65F;
+        font-weight: 500;
+        background: url('../../assets/coin2.png') no-repeat;
         width: 3rem;
         height: 3rem;
         line-height: 3rem;
@@ -348,5 +298,11 @@ export default {
         text-align: center;
         letter-spacing: 1.5px;
         opacity: .9;
+    }
+    .opa5 {
+        opacity: .5;
+    }
+    .opa1 {
+        opacity: 1;
     }
 </style>
