@@ -70,5 +70,7 @@ export default {
   }
   .feed-img {
     margin-top: 5px;
+    width: 78px;
+    /* height: 77px; */
   }
 </style>
