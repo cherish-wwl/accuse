@@ -23,7 +23,7 @@
           <p class="signTip2">{{item.is_today ? '今日' : item.title.slice(-2)}}</p>
         </div>
       </div>
-      <div class="signBtn">立即签到</div>
+      <div class="signBtn" @click="nowSign">立即签到</div>
     </div>
     <div class="noviceBlock">
         <p class="taskTitle">新手任务</p>
@@ -56,9 +56,11 @@
         </div>
     </div>
     <div class="supplementTip">更多任务正在开启中敬请期待哦～</div>
+    <sign-dialog v-if="isShowSignDialog" :is_double="is_double" @unwanted="unwanted"></sign-dialog>
   </div>
 </template>
 <script>
+import signDialog from '../../components/signDialog'
 export default {
     data() {
         return {
@@ -70,6 +72,8 @@ export default {
             everydayDataList: [
             ],
             myCoin: '1000',
+            isShowSignDialog: false,
+            is_double: false
         }
     },
     filters: {
@@ -83,6 +87,9 @@ export default {
                     return '已完成'
             }
         }
+    },
+    components: {
+        signDialog
     },
     mounted() {
         this.signCalendar()
@@ -107,8 +114,19 @@ export default {
                 console.log(this.noviceDataList,this.everydayDataList )
             })
         },
+        nowSign() {
+            this.$post(this.API['signIn']).then(res => {
+                if (res.status === 0) {
+                    this.is_double = res.data.is_double === 1 ? true : false
+                    this.isShowSignDialog = true
+                }
+            })
+        },
         completeTask() {
             console.log('QQQ')
+        },
+        unwanted() {
+            this.isShowSignDialog = false
         }
     }
 };

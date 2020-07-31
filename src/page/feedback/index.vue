@@ -97,7 +97,6 @@
         this.text1 = text1
         this.text2 = text2
         this.type = type
-        console.log('AA', this.type)
       },
       deleteImg(i) {
         this.fileList.splice(i, 1)
@@ -111,7 +110,10 @@
           type: this.type,
           describe: this.text,
           contact: this.phone,
-          file: this.fileList
+          // file: this.fileList
+        }
+        for(let i = 0; i < this.fileList.length; i++) {
+          params['file'+i] = this.fileList[i]
         }
         this.$post(this.API['feedback'], params).then(res => {
           console.log(res.status)
