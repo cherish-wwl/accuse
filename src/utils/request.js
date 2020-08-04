@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  // baseURL: '',
+  baseURL: process.env.NODE_ENV == "development" ? '': 'https://join.dev.fawo.cn',
   headers: {
     // 'Content-Type': "application/json;charset=utf-8",
     // 'Content-Type': 'application/x-www-form-urlencoded',
