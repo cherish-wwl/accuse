@@ -49,7 +49,7 @@
 				</div>
 				<div
 					class="noviceCol3"
-					:class="{opa1: item['status'] == 0, opa1: item['status'] == 1, opa5: item['status'] == 2}"
+					:class="{go: item['status'] == 0, wait: item['status'] == 1, complete: item['status'] == 2}"
 				>{{item.status | swichStatus}}</div>
 			</div>
 		</div>
@@ -69,7 +69,7 @@
 				</div>
 				<div
 					class="noviceCol3"
-					:class="{opa1: item['status'] == 0, opa1: item['status'] == 1, opa5: item['status'] == 2}"
+					:class="{go: item['status'] == 0, wait: item['status'] == 1, complete: item['status'] == 2}"
 					@click="completeTask"
 				>{{item.status | swichStatus}}</div>
 			</div>
@@ -83,64 +83,8 @@ import signDialog from "../../components/signDialog";
 export default {
 	data() {
 		return {
-
-			coin:  [
-						{
-							title: "\u7b2c1\u5929",
-							score: 100,
-							day: 1,
-							is_double: 0,
-							is_today: 1,
-							date: "2020-08-06",
-							is_sign: 1,
-						},
-						{
-							title: "\u7b2c2\u5929",
-							score: 400,
-							day: 2,
-							is_double: 1,
-							is_today: 0,
-							date: "2020-08-07",
-							is_sign: 0,
-						},
-						{
-							title: "\u7b2c3\u5929",
-							score: 300,
-							day: 3,
-							is_double: 0,
-							is_today: 0,
-							date: "2020-08-08",
-							is_sign: 0,
-						},
-						{
-							title: "\u7b2c4\u5929",
-							score: 400,
-							day: 4,
-							is_double: 0,
-							is_today: 0,
-							date: "2020-08-09",
-							is_sign: 0,
-						},
-						{
-							title: "\u7b2c5\u5929",
-							score: 1000,
-							day: 5,
-							is_double: 1,
-							is_today: 0,
-							date: "2020-08-10",
-							is_sign: 0,
-						},
-						{
-							title: "\u7b2c6\u5929",
-							score: 600,
-							day: 6,
-							is_double: 0,
-							is_today: 0,
-							date: "2020-08-11",
-							is_sign: 0,
-						},
-					],
-			signNum: 0,
+            coin: [],
+            signNum: 0,
 			noviceDataList: [],
 			everydayDataList: [],
 			myCoin: "1000",
@@ -164,7 +108,7 @@ export default {
 		signDialog,
 	},
 	mounted() {
-		// this.signCalendar();
+		this.signCalendar();
 		this.getTaskList();
 	},
 	methods: {
@@ -426,6 +370,9 @@ export default {
 	margin-left: 1rem;
 	line-height: 2.8rem;
 }
+.noviceCol3:active,.noviceCol3:hover{
+    opacity: .5;
+}
 
 .everydayBlock {
 	background: #ffffff;
@@ -447,8 +394,21 @@ export default {
 .opa5 {
 	opacity: 0.5;
 }
-.opa1 {
-	opacity: 1;
+.wait {
+    background: linear-gradient(166.06deg, #2B71FF 1.19%, #807DFF 50.67%);
+    border-radius: 30px;
+    color: #fff;
 }
+.go{
+    color: #0E5EFF;
+    background-color: #fff;
+    border: 1px solid #0E5EFF;
+    box-sizing: border-box;
+    border-radius: 30px;
+}
+.complete{
+    opacity: 0.5;
+}
+
 
 </style>
