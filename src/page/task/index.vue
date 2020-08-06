@@ -1,20 +1,20 @@
 <template>
 	<div class="task">
-        <div class="header-container">
-            <div class="header">
-                <div class="coinDetails">
-                    <span class="myCoin">我的金币</span>
-                    <span class="coindetail">
-                        <router-link to="coinDetail.html" @click="turnToCoinDetail">金币明细</router-link>
-                    </span>
-                </div>
-                <div class="coinImg">
-                    <img class="coinLeft" src="../../assets/coinLeft.png" />
-                    <span class="myCoinNum">{{myCoin}}</span>
-                    <!-- <img class="coinRight" src="../../assets/banner-bg.png" /> -->
-                </div>
-            </div>
-        </div>
+		<div class="header-container">
+			<div class="header">
+				<div class="coinDetails">
+					<span class="myCoin">我的金币</span>
+					<span class="coindetail">
+						<a href="coinDetail.html">金币明细</a>
+					</span>
+				</div>
+				<div class="coinImg">
+					<img class="coinLeft" src="../../assets/coinLeft.png" />
+					<span class="myCoinNum">{{myCoin}}</span>
+					<!-- <img class="coinRight" src="../../assets/banner-bg.png" /> -->
+				</div>
+			</div>
+		</div>
 		<div class="signBlock">
 			<p class="signText">
 				{{signNum}}
@@ -26,18 +26,22 @@
 						class="coinText1"
 						:class="item.is_sign ? 'coinText2' : 'coinText1'"
 					>{{item.is_double ? '翻倍' : item.score}}</span>
-                    <i class="check-icon" v-if="item.is_sign "></i>
-                    <i class="tips-icon" v-if="(coin[index-1]|| {}).is_today">明日可领</i>
+					<i class="check-icon" v-if="item.is_sign "></i>
+					<i class="tips-icon" v-if="(coin[index-1]|| {}).is_today">明日可领</i>
 					<p class="signTip2">{{item.is_today ? '今日' : item.title.slice(-2)}}</p>
 				</div>
 			</div>
-			<div class="signBtn" @click="nowSign">立即签到</div>
+			<div
+				class="signBtn"
+				:class="{'signed':hasSigned}"
+				@click="nowSign"
+			>{{ !hasSigned?'立即签到':'今日已签到'}}</div>
 		</div>
 		<div class="noviceBlock">
 			<p class="taskTitle">新手任务</p>
 			<div v-for="(item, index) in noviceDataList" :key="index" class="taskItems">
 				<div class="noviceCol1">
-					<img style="height: 32px;width: 32px;background-color:#ccc" />
+					<img height="32" width="32"  :src="item.pic" />
 				</div>
 				<div class="noviceCol2">
 					<p
@@ -49,6 +53,7 @@
 				</div>
 				<div
 					class="noviceCol3"
+					@click="hanlderClick(item)"
 					:class="{go: item['status'] == 0, wait: item['status'] == 1, complete: item['status'] == 2}"
 				>{{item.status | swichStatus}}</div>
 			</div>
@@ -57,7 +62,7 @@
 			<p class="taskTitle">每日任务</p>
 			<div v-for="(item, index) in everydayDataList" :key="index" class="taskItems">
 				<div class="noviceCol1">
-					<img style="height: 32px;width: 32px;background-color:#ccc" />
+					<img height="32" width="32"  :src="item.pic"/>
 				</div>
 				<div class="noviceCol2">
 					<p
@@ -70,7 +75,7 @@
 				<div
 					class="noviceCol3"
 					:class="{go: item['status'] == 0, wait: item['status'] == 1, complete: item['status'] == 2}"
-					@click="completeTask"
+					@click="hanlderClick(item)"
 				>{{item.status | swichStatus}}</div>
 			</div>
 		</div>
@@ -83,13 +88,15 @@ import signDialog from "../../components/signDialog";
 export default {
 	data() {
 		return {
-            coin: [],
-            signNum: 0,
+			hasSigned: false,
+			coin: [],
+			signNum: 0,
 			noviceDataList: [],
 			everydayDataList: [],
-			myCoin: "1000",
+			myCoin: "0",
 			isShowSignDialog: false,
 			is_double: false,
+			userInfo: {},
 		};
 	},
 	filters: {
@@ -108,26 +115,29 @@ export default {
 		signDialog,
 	},
 	mounted() {
+		this.getUserInfo();
 		this.signCalendar();
 		this.getTaskList();
 	},
 	methods: {
-		turnToCoinDetail() {
-			this.$router.push({ name: "coinDetail" });
+		getUserInfo() {
+			this.$get(this.API["userInfo"]).then((res) => {
+				this.userInfo = res.data.user_info;
+				this.myCoin = this.userInfo.score;
+			});
 		},
 		signCalendar() {
 			this.$get(this.API["signCalendar"]).then((res) => {
-				console.log(res);
 				this.signNum = res.data.aggregate;
 				this.coin = res.data.calendar;
+				this.hasSigned = this.coin.find((e) => !!e.is_sign && !!e.is_today);
 			});
 		},
 		getTaskList() {
 			this.$get(this.API["taskList"]).then((res) => {
-				console.log("QQQ", res);
-				this.noviceDataList = res.data.noob_task;
-				this.everydayDataList = res.data.daily_task;
-				console.log(this.noviceDataList, this.everydayDataList);
+				if (!res.data) return;
+				this.noviceDataList = res.data.noob_task || [];
+				this.everydayDataList = res.data.daily_task || [];
 			});
 		},
 		nowSign() {
@@ -135,11 +145,28 @@ export default {
 				if (res.status === 0) {
 					this.is_double = res.data.is_double === 1 ? true : false;
 					this.isShowSignDialog = true;
+					this.signCalendar();
 				}
 			});
 		},
-		completeTask() {
-			console.log("QQQ");
+		hanlderClick(item) {
+			// 领取
+			if (item.status == 1) {
+				this.finishTask(item.task_id);
+			}
+			// 去完成
+			if (item.status == 0){
+				// ...todo
+			}
+		},
+		finishTask(id) {
+			this.$post(this.API["finishTask"], { task_id: parseInt(id) }).then(() => {
+				// if(res.status === 0){
+				this.getUserInfo();
+				this.signCalendar();
+				this.getTaskList();
+				// }
+			});
 		},
 		unwanted() {
 			this.isShowSignDialog = false;
@@ -148,26 +175,25 @@ export default {
 };
 </script>
 <style>
- html{
-    height: 100%;
-    background: linear-gradient(115.29deg, #2b71ff 1.19%, #807dff 50.67%);
- }
+html {
+	height: 100%;
+	background: linear-gradient(115.29deg, #2b71ff 1.19%, #807dff 50.67%);
+}
 </style>
 <style scoped>
 .task {
 	/* background: linear-gradient(115.29deg, #2b71ff 1.19%, #807dff 50.67%); */
 	padding: 0 10px;
 	padding-bottom: 5rem;
-    overflow: hidden;
+	overflow: hidden;
 }
 .header {
-    padding: 2rem 3rem;
+	padding: 2rem 3rem;
 }
-.header-container{
-    background: url(../../assets/banner-bg.png) no-repeat;
-    background-size: 100%;
-    background-position: 0 0.7rem;
-
+.header-container {
+	background: url(../../assets/banner-bg.png) no-repeat;
+	background-size: 100%;
+	background-position: 0 0.7rem;
 }
 .coinDetails {
 	display: flex;
@@ -175,8 +201,8 @@ export default {
 }
 .coinImg {
 	margin-top: 1.5rem;
-    display: flex;
-    width: 55%;
+	display: flex;
+	width: 55%;
 }
 .myCoin {
 	font-family: PingFang SC;
@@ -195,7 +221,7 @@ export default {
 }
 .coinLeft {
 	width: 50px;
-    height: 50px;
+	height: 50px;
 	margin-bottom: -8px;
 	margin-left: -7px;
 }
@@ -205,8 +231,8 @@ export default {
 	font-weight: normal;
 	font-size: 40px;
 	color: #ffffff;
-    overflow: hidden;
-    text-overflow: ellipsis;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .coinRight {
 	width: 100px;
@@ -251,57 +277,57 @@ export default {
 	width: 3rem;
 	height: 3rem;
 	line-height: 3rem;
-    position: relative;
-    z-index: 2;
-    font-size: 1.4rem;
+	position: relative;
+	z-index: 2;
+	font-size: 1.4rem;
 }
-.check-icon{
-    /* background-color: linear-gradient(151.99deg, #2B71FF 1.19%, #807DFF 50.67%); */
-    display: inline-block;
-    width: 1rem;
-    height: 1rem;
-    background-image: url('../../assets/check.png');
-    background-repeat: no-repeat;
-    background-color: #807DFF;
-    background-size: .6rem .6rem;
-    background-position: center;
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translateX(24%);
-    z-index: 4;
+.check-icon {
+	/* background-color: linear-gradient(151.99deg, #2B71FF 1.19%, #807DFF 50.67%); */
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+	background-image: url("../../assets/check.png");
+	background-repeat: no-repeat;
+	background-color: #807dff;
+	background-size: 0.6rem 0.6rem;
+	background-position: center;
+	border-radius: 50%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	transform: translateX(24%);
+	z-index: 4;
 }
-.tips-icon{
-    background-image: url('../../assets/tips.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%,-83%);
-    padding: 0.15rem 0.5rem .5rem;
-    z-index: 4;
-    color: #fff;
-    font-size: .5rem;
-    line-height: 1.5;
-    white-space: nowrap;
+.tips-icon {
+	background-image: url("../../assets/tips.png");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -83%);
+	padding: 0.15rem 0.5rem 0.5rem;
+	z-index: 4;
+	color: #fff;
+	font-size: 0.5rem;
+	line-height: 1.5;
+	white-space: nowrap;
 }
-.coinText2{
-    color: #FFF65F;
-    text-shadow: 0px 0px 1px #DF8D00;
+.coinText2 {
+	color: #fff65f;
+	text-shadow: 0px 0px 1px #df8d00;
 }
 .coinText2::after {
-    content: "";
+	content: "";
 	display: inline-block;
 	background: url("../../assets/coin2.png") no-repeat;
-    width: 2.6rem;
-    height: 2.6rem;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
+	width: 2.6rem;
+	height: 2.6rem;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: -1;
 }
 
 .signBtn {
@@ -318,6 +344,9 @@ export default {
 	text-align: center;
 	margin: auto;
 	margin-top: 2.2rem;
+}
+.signBtn.signed {
+	opacity: 0.5;
 }
 
 .noviceBlock {
@@ -370,8 +399,9 @@ export default {
 	margin-left: 1rem;
 	line-height: 2.8rem;
 }
-.noviceCol3:active,.noviceCol3:hover{
-    opacity: .5;
+.noviceCol3:active,
+.noviceCol3:hover {
+	opacity: 0.5;
 }
 
 .everydayBlock {
@@ -395,20 +425,18 @@ export default {
 	opacity: 0.5;
 }
 .wait {
-    background: linear-gradient(166.06deg, #2B71FF 1.19%, #807DFF 50.67%);
-    border-radius: 30px;
-    color: #fff;
+	background: linear-gradient(166.06deg, #2b71ff 1.19%, #807dff 50.67%);
+	border-radius: 30px;
+	color: #fff;
 }
-.go{
-    color: #0E5EFF;
-    background-color: #fff;
-    border: 1px solid #0E5EFF;
-    box-sizing: border-box;
-    border-radius: 30px;
+.go {
+	color: #0e5eff;
+	background-color: #fff;
+	border: 1px solid #0e5eff;
+	box-sizing: border-box;
+	border-radius: 30px;
 }
-.complete{
-    opacity: 0.5;
+.complete {
+	opacity: 0.5;
 }
-
-
 </style>

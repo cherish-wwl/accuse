@@ -13,6 +13,7 @@ const api = {
   feedback: '/user/v2/feedback',
   // 提交意见
   // '/user/v2/feedback',
+  userInfo: '/user/v2/getInfo',
 }
 
 export default api
