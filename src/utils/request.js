@@ -19,7 +19,7 @@ instance.interceptors.response.use((config) => {
 })
 
 export function post(url, data = {}) {
-  console.log(data)
+  // console.log(data)
   return new Promise((resolve, reject) => {
     instance.post(url, data).then(res => {
       if (res.data) {
@@ -45,7 +45,7 @@ const spliceApiUrl = (apiUrl, params = {}) => {
 };
 
 export function get(url, data = {}) {
-  console.log(data)
+  // console.log(data)
   return new Promise((resolve, reject) => {
     instance.get(spliceApiUrl(url, data)).then(res => {
       if (res.data) {

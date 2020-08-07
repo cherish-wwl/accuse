@@ -1,5 +1,5 @@
 <template>
-  <div class="coin-detail">
+  <div class="coin-detail mescroll" id="mescroll">
       <div v-for="(item, index) in detailDataList" :key="index" class="detail-item">
           <div class="col1">
               <p class="col1Title">{{item.title}}</p>
@@ -9,24 +9,71 @@
               {{item.describe}}
           </div>
       </div>
+      <div id="empty"></div>
   </div>
 </template>
 <script>
+import MeScroll from 'mescroll.js'
+import 'mescroll.js/mescroll.min.css'
 export default {
     data() {
         return {
           detailDataList: [
-          ]
+          ],
+          params: {
+            page: 1,
+            perPage: 20,
+          },
         }
     },
     mounted() {
-      this.getRecord()
+      this.bindScroll()
     },
     methods: {
+      downCallback(){
+        this.params.page = 1;
+        this.getRecord()
+      },
+      upCallback(){
+        this.params.page = this.params.page + 1;
+        this.getRecord()
+      },
+      bindScroll() {
+        this.mescroll =new MeScroll("mescroll", {
+          down: {
+            auto: true,
+            callback: this.downCallback,
+          },
+          up: {
+            auto:false,
+            callback: this.upCallback, 
+            page: {
+              num: 1, 
+              size: 20, 
+            },
+            htmlNodata: '<p class="upwarp-nodata">没有了哦～</p>',
+            noMoreSize: 5, 
+            empty: {
+              warpId:'empty',
+              tip: "暂时没有内容哦～", //提示
+            },
+            lazyLoad: {
+              use: true, 
+              attr: 'imgurl' 
+            },
+          },
+        });
+      },
       getRecord() {
-        this.$get(this.API['record']).then(res => {
-          console.log(res)
-          this.detailDataList = res.data.data
+        this.$get(this.API['record'],this.params).then(res => {
+          let list = res.data.data || [];
+          if(this.params.page==1){
+            this.detailDataList = list;
+          }else if(list && list.length){
+            this.detailDataList = [...this.detailDataList, ...list];
+          }
+          this.mescroll.endSuccess(list.length);
+          console.log(this.detailDataList)
         })
       }
     }
@@ -34,6 +81,13 @@ export default {
 </script>
 
 <style scoped>
+  .mescroll {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto; /*如设置bottom:50px,则需height:auto才能生效*/
+  }
   .detail-item {
       display: flex;
       padding: 1.6rem;
