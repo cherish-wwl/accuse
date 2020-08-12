@@ -9,24 +9,26 @@ Vue.config.productionTip = false
 Vue.prototype.API = API;
 Vue.prototype.$post = post;
 Vue.prototype.$get = get;
-// (function(doc, win) {
-//   var docEl = doc.documentElement,
-//     resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-//     recalc = function() {
-//       var clientWidth = docEl.clientWidth;
-//       if (!clientWidth) return;
-//       if (clientWidth >= 640) {
-//         docEl.style.fontSize = '100px';
-//       } else {
-//         docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
-//       }
-//     };
-//   if (!doc.addEventListener) return;
-//   win.addEventListener(resizeEvt, recalc, false);
-//   doc.addEventListener('DOMContentLoaded', recalc, false);
-// })(document, window)
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+import {	setupWebViewJavascriptBridge } from './utils/webViewJavascriptBridge';
+setupWebViewJavascriptBridge(bridge=>{
+  console.log('bridge',bridge)
+  // window.Bridge = client;
+  
+  bridge.callHandler('getJWT',function(response) {
+    //response：回调
+    console.log('getJWT response',response)
+});
+})
+import VConsole from 'vconsole';
 
+let vConsole = new VConsole();
+Vue.use(vConsole)
 new Vue({
   render: h => h(App),
-  router
+  router,
+  mounted() {
+    console.log('$cookies.get(Authorization)',this.$cookies.get('Authorization'))
+  },
 }).$mount('#app')

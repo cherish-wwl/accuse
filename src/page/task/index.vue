@@ -54,7 +54,7 @@
 				<div
 					class="noviceCol3"
 					@click="hanlderClick(item)"
-					:class="{go: item['status'] == 0, wait: item['status'] == 1, complete: item['status'] == 2}"
+					:class="{go: item['status'] == 0, wait: item['status'] == 1, complete: item['status'] == 2,process: item['status'] == 3}"
 				>{{item.status | swichStatus}}</div>
 			</div>
 		</div>
@@ -74,7 +74,7 @@
 				</div>
 				<div
 					class="noviceCol3"
-					:class="{go: item['status'] == 0, wait: item['status'] == 1, complete: item['status'] == 2}"
+					:class="{go: item['status'] == 0, wait: item['status'] == 1, complete: item['status'] == 2,process: item['status'] == 3}"
 					@click="hanlderClick(item)"
 				>{{item.status | swichStatus}}</div>
 			</div>
@@ -108,6 +108,8 @@ export default {
 					return "领取";
 				case 2:
 					return "已完成";
+				case 3:
+					return "已领取";
 			}
 		},
 	},
@@ -145,13 +147,16 @@ export default {
 				if (res.status === 0) {
 					this.is_double = res.data.is_double === 1 ? true : false;
 					this.isShowSignDialog = true;
+					this.getUserInfo();
 					this.signCalendar();
+					this.getTaskList();
 				}
 			});
 		},
 		hanlderClick(item) {
 			// 领取
 			if (item.status == 1) {
+				this.$set(item,'status', 3)
 				this.finishTask(item.task_id);
 			}
 			// 去完成
@@ -321,8 +326,9 @@ html {
 	content: "";
 	display: inline-block;
 	background: url("../../assets/coin2.png") no-repeat;
-	width: 2.6rem;
-	height: 2.6rem;
+	background-size: cover;
+	width: 3rem;
+	height: 3rem;
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -399,10 +405,10 @@ html {
 	margin-left: 1rem;
 	line-height: 2.8rem;
 }
-.noviceCol3:active,
+/* .noviceCol3:active,
 .noviceCol3:hover {
 	opacity: 0.5;
-}
+} */
 
 .everydayBlock {
 	background: #ffffff;
@@ -424,10 +430,13 @@ html {
 .opa5 {
 	opacity: 0.5;
 }
-.wait {
+.wait,.process {
 	background: linear-gradient(166.06deg, #2b71ff 1.19%, #807dff 50.67%);
 	border-radius: 30px;
 	color: #fff;
+}
+.process{
+	opacity: 0.5;
 }
 .go {
 	color: #0e5eff;

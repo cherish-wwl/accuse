@@ -11,7 +11,9 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "mescroll.js": "^1.4.2",
+    "vconsole": "^3.3.4",
     "vue": "^2.6.11",
+    "vue-cookies": "^1.7.3",
     "vue-router": "^3.3.4"
   },
   "devDependencies": {
@@ -29,8 +31,7 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
+      "plugin:vue/essential"
     ],
     "parserOptions": {
       "parser": "babel-eslint"
