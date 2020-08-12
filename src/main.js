@@ -12,15 +12,7 @@ Vue.prototype.$get = get;
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 import {	setupWebViewJavascriptBridge } from './utils/webViewJavascriptBridge';
-setupWebViewJavascriptBridge(bridge=>{
-  console.log('bridge',bridge)
-  // window.Bridge = client;
-  
-  bridge.callHandler('getJWT',function(response) {
-    //response：回调
-    console.log('getJWT response',response)
-});
-})
+
 import VConsole from 'vconsole';
 
 let vConsole = new VConsole();
@@ -29,6 +21,14 @@ new Vue({
   render: h => h(App),
   router,
   mounted() {
+    setupWebViewJavascriptBridge(bridge=>{
+      console.log('bridge',bridge)  
+      
+      bridge.callHandler('getJWT',function(response) {
+        //response：回调
+        console.log('getJWT response',response)
+      });
+    })
     console.log('$cookies.get(Authorization)',this.$cookies.get('Authorization'))
   },
 }).$mount('#app')
