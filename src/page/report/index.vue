@@ -28,7 +28,9 @@
       <p class="remarkP">
         <img src="../../assets/Group_4@2x.png" alt /> 您的举报将在24小时内受理，请尽量提交完整的举报描述及材料，无需重复举报，感谢您的配合
       </p>
-      <button class="btnSubmit" @click="submit">提交</button>
+     
+      <button class="opa5 btnSubmit" v-if="commonLiItem.length == 0">提交</button>
+       <button class="btnSubmit" v-else @click="submit">提交</button>
     </article>
     <div class="standardText">了解速播社区规范 <span style="color: #D5DBE6;"> ></span></div>
     <pop-up :textMap="textMap" :time="2" v-if="showDialog"></pop-up>
@@ -57,11 +59,19 @@ export default {
         text1: '举报成功',
         text2: '我们会尽快处理哒~'
       },
-      showDialog: false
+      showDialog: false,
+      item_hash_id:'',
+      item_type:'',
+      files:[],
     }
   },
   components: {
     popUp
+  },
+  mounted(){
+    console.log(this.$route)
+    this.item_hash_id = this.$route.query.item_hash_id || '';
+    this.item_type = this.$route.query.item_type || ''
   },
   methods: {
     chooseImage() {
@@ -69,18 +79,20 @@ export default {
     },
     changeImage(e) {
       Object.entries(e.target.files).map(([key, value]) => {
-        console.log(key)
+        // console.log(value)
         var reader = new FileReader()
         var that = this
         reader.readAsDataURL(value)
         reader.onload = function(e) {
-          console.log(e)
+          // console.log(e)
           that.fileList.push(this.result)
+          that.files.push(value)
         }
       })
     },
     deleteImg(i) {
       this.fileList.splice(i, 1)
+      this.files.splice(i,1)
     },
     clickCommonLi(i) {
       if (this.commonLiItem.includes(i)) {
@@ -91,8 +103,25 @@ export default {
       }
     },
     submit() {
-      console.log(this.commonLiItem)
-      this.showDialog = true
+      // console.log(this.commonLiItem)
+      let params = new FormData();
+      params.append('item_type',this.item_type)
+      params.append('item_hash_id',this.item_hash_id)
+      params.append('report_reason',this.commonLiItem.join(','))
+      params.append('reason_supplement',this.text)
+     
+      this.files.map((e,i) => {
+        if(i == 0){
+          params.append('images',e);
+        }else{
+          params.append('images_' + (i+1), e);
+        }
+      })
+      this.$post(this.API["submitAccuse"],params).then((res) => {
+				if (res.status === 0) {
+				  this.showDialog = true
+				}
+			});
     }
   }
 };
@@ -233,5 +262,8 @@ textarea {
   color: #0D5EFF;
   text-align: center;
   margin-top: 100px;
+}
+.opa5{
+  opacity: .5;
 }
 </style>

@@ -1,18 +1,24 @@
 import axios from 'axios'
 import {	getJWT } from './webViewJavascriptBridge';
+let jwt = ""
+getAuth();
+async function getAuth(){
+  try{
+    jwt = await getJWT();
+  }catch(e){
+    console.log(e)
+  }
+}
 
 const instance = axios.create({
   baseURL: process.env.NODE_ENV == "development" ? '': 'https://join.dev.fawo.cn',
   headers: {
-    // 'Content-Type': "application/json;charset=utf-8",
-    // 'Content-Type': 'application/x-www-form-urlencoded',
-    'Authorization': 'Bearer eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJIUzI1NiJ9.eyJkZXZpY2UiOnsiaGFzaF9pZHMiOiJybHlNbGJWWSIsImRldmljZV9uYW1lIjoiXHU3OWMzXHU3OWMzXHU3Njg0XHU3MGVkXHU3MGI5IiwiZGV2aWNlX3VzaW5nX2lkIjoiNjEzODJjNDQ0N2MyZDM5ZiJ9LCJ1c2VyIjp7Imhhc2hfaWRzIjoicGFtTnpQNzh2TmF2Iiwibmlja25hbWUiOiJcdTc1MjhcdTYyMzdfTVNmaDI5SnIifSwiaXNzIjoic3Vib2Jhc2UgZGV2IiwiaWF0IjoxNTk3MDIzODc2LCJleHAiOjE1OTcxOTY2NzZ9.0cabdd4a9579c8a747fa07090b9ec73a',
-    // 'User-Agent': 'subotest17/i/10200 1.1.0 STORE 1177473061C74145B943660333586EF0 (iPhone 6s;iOS;13.4.1;iPhone8,1)'
+    'Authorization': jwt || 'Bearer eyJ0eXAiOiAiSldUIiwgImFsZyI6ICJIUzI1NiJ9.eyJkZXZpY2UiOnsiaGFzaF9pZHMiOiJuOGJscG9iRSIsImRldmljZV9uYW1lIjoid3dsXHVkODNkXHVkZTE4XHVkODNkXHVkZTBmXHUyNjNhXHVmZTBmaVBob25lIiwiZGV2aWNlX3VzaW5nX2lkIjoiMTZGNTM2QjRDRTk2NDFBQkE3Q0VCRDE0REU5QUJFNDMifSwidXNlciI6eyJoYXNoX2lkcyI6ImVyZFg4UWpnR0VnYSIsIm5pY2tuYW1lIjoiXHU3NTI4XHU2MjM3X2FhZ1F5SFFVIn0sImlzcyI6InN1Ym9iYXNlIGRldiIsImlhdCI6MTU5NzI5MDQwMSwiZXhwIjoxNTk3NDYzMjAxfQ==.ea8a4aff8fe50a3f8f9fba18878f51ae',
   }
 })
 
 instance.interceptors.request.use((config) => {
-  console.log('getJWT',getJWT())
+  
   return config
 })
 

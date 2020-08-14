@@ -1,34 +1,27 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router/index'
-import './home.css';
-import API from './utils/api'
-import { post, get } from './utils/request'
+import Vue from "vue";
+import router from "./router/index";
+import "./home.css";
+import API from "./utils/api";
+import { post, get } from "./utils/request";
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 Vue.prototype.API = API;
 Vue.prototype.$post = post;
 Vue.prototype.$get = get;
-import VueCookies from 'vue-cookies'
-Vue.use(VueCookies)
-import {	setupWebViewJavascriptBridge } from './utils/webViewJavascriptBridge';
 
-import VConsole from 'vconsole';
+import VueCookies from "vue-cookies";
+Vue.use(VueCookies);
 
+import VConsole from "vconsole";
 let vConsole = new VConsole();
-Vue.use(vConsole)
-new Vue({
-  render: h => h(App),
-  router,
-  mounted() {
-    setupWebViewJavascriptBridge(bridge=>{
-      console.log('bridge',bridge)  
-      
-      bridge.callHandler('getJWT',function(response) {
-        //response：回调
-        console.log('getJWT response',response)
-      });
-    })
-    console.log('$cookies.get(Authorization)',this.$cookies.get('Authorization'))
-  },
-}).$mount('#app')
+Vue.use(vConsole);
+
+
+function init(Dom) {
+  new Vue({
+    render: (h) => h(Dom),
+    router,
+  }).$mount("#app");
+}
+
+export { init };

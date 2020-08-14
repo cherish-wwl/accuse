@@ -13,7 +13,10 @@ const api = {
   feedback: '/user/v2/feedback',
   // 提交意见
   // '/user/v2/feedback',
+  // 获取用户信息
   userInfo: '/user/v2/getInfo',
+  // 提交举报
+  submitAccuse: '/cmu/v1/accuse',
 }
 
 export default api

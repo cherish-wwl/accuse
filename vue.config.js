@@ -1,14 +1,15 @@
 module.exports ={
   publicPath:'./',
   outputDir:'serve',
+
   pages:{
-    main:{
-        entry: 'src/main.js',
-        template: 'public/index.html',
-        filename: 'index.html',
-        title: 'main',
-        chunks: ['chunk-vendors', 'chunk-common', 'main']
-    },
+    // main:{
+    //     entry: 'src/main.js',
+    //     template: 'public/index.html',
+    //     filename: 'index.html',
+    //     title: 'main',
+    //     chunks: ['chunk-vendors', 'chunk-common', 'main']
+    // },
     task:{
        entry: 'src/entrys/task.js',
        template: 'public/index.html',
@@ -46,8 +47,9 @@ module.exports ={
    }
   },
   devServer: {
+    open: true,            
+    index: 'mine.html',
     proxy: {
-      // proxy all requests starting with /api to jsonplaceholder
       '': {
         target: 'https://join.dev.fawo.cn',   //代理接口
         secure:false,

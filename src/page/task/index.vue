@@ -80,11 +80,13 @@
 			</div>
 		</div>
 		<div class="supplementTip">更多任务正在开启中敬请期待哦～</div>
+		<div id="test_label"></div>
 		<sign-dialog v-if="isShowSignDialog" :is_double="is_double" @unwanted="unwanted"></sign-dialog>
 	</div>
 </template>
 <script>
 import signDialog from "../../components/signDialog";
+import {	setupWebViewJavascriptBridge } from '../../utils/webViewJavascriptBridge';
 export default {
 	data() {
 		return {
@@ -120,6 +122,7 @@ export default {
 		this.getUserInfo();
 		this.signCalendar();
 		this.getTaskList();
+
 	},
 	methods: {
 		getUserInfo() {
@@ -143,6 +146,8 @@ export default {
 			});
 		},
 		nowSign() {
+			console.log('nowSign',this.hasSigned)
+			if(this.hasSigned) return;
 			this.$post(this.API["signIn"]).then((res) => {
 				if (res.status === 0) {
 					this.is_double = res.data.is_double === 1 ? true : false;
@@ -154,6 +159,7 @@ export default {
 			});
 		},
 		hanlderClick(item) {
+			console.log('领取',item)
 			// 领取
 			if (item.status == 1) {
 				this.$set(item,'status', 3)
