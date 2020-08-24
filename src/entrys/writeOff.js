@@ -1,5 +1,5 @@
 
-import App from '../page/coinDetail'
+import App from '../page/writeOff'
 
 import {init } from '../main';
 

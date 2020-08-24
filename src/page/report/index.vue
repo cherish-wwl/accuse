@@ -5,8 +5,9 @@
       <ul class="listUl">
         <li class="commonLi" :class="{active: commonLiItem.includes(item)}" v-for="(item, index) in commonLi" :key="index" @click="clickCommonLi(item)">{{item}}</li>
       </ul>
-      <div class="line"></div>
+     
       <section class="noteSec" v-if="commonLiItem.length > 0">
+        <div class="line"></div>
         <div>
           <p class="feed-title">补充说明</p>
           <div class="block1">
@@ -33,11 +34,12 @@
        <button class="btnSubmit" v-else @click="submit">提交</button>
     </article>
     <div class="standardText">了解速播社区规范 <span style="color: #D5DBE6;"> ></span></div>
-    <pop-up :textMap="textMap" :time="2" v-if="showDialog"></pop-up>
+    <pop-up :textMap="textMap" :time="2" v-if="showDialog" @closeCallback="closeWindow"></pop-up>
   </div>
 </template>
 <script>
 import popUp from '../../components/popUp'
+import { CCloseWindow } from '../../utils/webViewJavascriptBridge'
 export default {
   data() {
     return {
@@ -118,10 +120,16 @@ export default {
         }
       })
       this.$post(this.API["submitAccuse"],params).then((res) => {
+        console.log(res)
 				if (res.status === 0) {
-				  this.showDialog = true
+          this.showDialog = true
+          
 				}
 			});
+    },
+    closeWindow(){
+      console.log('CloseWindow')
+      CCloseWindow()
     }
   }
 };
@@ -131,10 +139,10 @@ export default {
 .txtP {
   height: 56px;
   line-height: 56px;
-  background: #f5f7fa;
-  color: #303133;
   padding-left: 16px;
-  font-size: 18px;
+  font-size: 16px;
+  color: #BFC4CD;
+  font-weight: normal;
 }
 .listUl {
   display: flex;
@@ -144,8 +152,8 @@ export default {
   padding: 0 16px;
 }
 .line {
-  height: 2px;
-  margin: 20px 16px 9px;
+  height: 1px;
+  margin: 20px 0 9px;
   background-color: #EDEFF2;
 }
 .commonLi {
@@ -163,11 +171,11 @@ export default {
   font-size: 12px;
   padding: 0 16px 0 40px;
   position: relative;
-  margin-top: 44px;
+  margin-top: 20px;
 }
 .remarkP img {
   position: absolute;
-  width: 12px;
+  width: 16px;
   left: 16px;
   top: 3px;
 }
@@ -183,11 +191,12 @@ textarea {
   padding-top: 0;
 }
 .feed-title {
-  font-family: PingFang SC;
   font-style: normal;
   font-weight: normal;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   margin-bottom: 4px;
+  color: #303133;
+  margin-top: 2rem;
 }
 .block1 {
   background: #FCFCFC;
@@ -202,6 +211,11 @@ textarea {
   padding: 1.6rem;
   border-radius: 8px;
   padding-right: 0px;
+  line-height: 2rem;
+}
+.text-area::placeholder{
+  font-size: 1.6rem;
+  color: #BFC4CD;
 }
 .rz-picter {
   padding: 10px;
@@ -224,14 +238,14 @@ textarea {
   height: 7.5rem;
   width: 7.5rem;
   border-radius: 5px;
-  background: #EDEFF2;
+  background: #F5F7FA;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .img-avatar {
   height: 16px;
-  width: 16px;
+  width: 18px;
   border-radius: 2px;
 }
 .btnSubmit {
@@ -262,6 +276,7 @@ textarea {
   color: #0D5EFF;
   text-align: center;
   margin-top: 100px;
+  margin-bottom: 20px;
 }
 .opa5{
   opacity: .5;

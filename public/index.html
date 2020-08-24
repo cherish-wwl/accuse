@@ -7,12 +7,29 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <script>
+      function setJWT(data){
+      //data为JWT
+        console.log('setJWT',data)
+        var element=document.getElementById("jwt");
+        element.innerHTML=data;
+      }
+      function setUA(data){
+        console.log('setUA',data)
+        var element=document.getElementById("ua");
+        element.innerHTML=data;
+      }
+    </script>
   </head>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
+    <div style="display: none;">
+      <div id="jwt"></div>
+      <div id="ua"></div>
+    </div>
     <!-- built files will be auto injected -->
   </body>
 </html>

@@ -12,9 +12,6 @@ Vue.prototype.$get = get;
 import VueCookies from "vue-cookies";
 Vue.use(VueCookies);
 
-import VConsole from "vconsole";
-let vConsole = new VConsole();
-Vue.use(vConsole);
 
 
 function init(Dom) {

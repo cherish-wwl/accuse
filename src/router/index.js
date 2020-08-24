@@ -30,5 +30,10 @@ export default new Router({
             name: 'myFeedback',
             component: resolve => require(['../page/myFeedback/index.vue'], resolve),
         },
+        {
+            path: '/注销',
+            name: 'writeOff',
+            component: resolve => require(['../page/writeOff/index.vue'], resolve),
+        },
     ]
 })

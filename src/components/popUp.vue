@@ -23,6 +23,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.isshowDialog = false
+      this.$emit('closeCallback')
     }, this.time*1000)
   }
 }
