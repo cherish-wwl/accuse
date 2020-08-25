@@ -31,11 +31,11 @@ export default {
   },
   methods:{
     next(){
-      let arr = this.checked.map(e=>{
-        return this.reasons[e]
-      })
-      console.log(arr,this.elseReason)
-      localStorage.setItem('reasons', arr.join(','))
+      // let arr = this.checked.map(e=>{
+      //   return this.reasons[e]
+      // })
+      // console.log(arr,this.elseReason)
+      localStorage.setItem('reasons', this.checked.join(','))
       localStorage.setItem('elseReason', this.elseReason)
       this.$emit('next')
     }
