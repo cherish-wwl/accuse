@@ -11,8 +11,12 @@ Vue.prototype.$get = get;
 
 import VueCookies from "vue-cookies";
 Vue.use(VueCookies);
+import popUp from './components/popUp';
+Vue.component('popUp',popUp);
 
-
+import Vconsole from 'vconsole'
+let vConsole = new Vconsole()
+Vue.use(vConsole)
 
 function init(Dom) {
   new Vue({

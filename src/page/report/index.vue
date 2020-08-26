@@ -38,7 +38,7 @@
   </div>
 </template>
 <script>
-import popUp from '../../components/popUp'
+// import popUp from '../../components/popUp'
 import { CCloseWindow } from '../../utils/webViewJavascriptBridge'
 export default {
   data() {
@@ -66,9 +66,6 @@ export default {
       item_type:'',
       files:[],
     }
-  },
-  components: {
-    popUp
   },
   mounted(){
     console.log(this.$route)

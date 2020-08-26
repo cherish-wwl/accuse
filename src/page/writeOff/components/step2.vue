@@ -20,9 +20,22 @@
 					<li>·帐号为正常使用中的帐号无任何被限制的记录</li>
 				</template>
 				<template v-if="step == 3 || step == 4">
-					<li class="title1">{{is_safety}}账号处于安全状态</li>
-					<li class="title1">{{is_dispute}}账号无任何纠纷，包括举报和反馈</li>
-					<li class="title1">{{is_banned}}账号未被封禁</li>
+					<li class="title1">
+
+						<img v-if="is_safety == 1" src="@/assets/checked.png" class="icon"/>
+						<img v-else src="@/assets/error.png" class="icon"/>
+						账号处于安全状态 
+					</li>
+					<li class="title1">
+						<img v-if="is_dispute == 1" src="@/assets/checked.png" class="icon"/>
+						<img v-else src="@/assets/error.png" class="icon"/>
+						账号无任何纠纷，包括举报和反馈
+					</li>
+					<li class="title1">
+						<img v-if="is_banned == 1" src="@/assets/checked.png" class="icon"/>
+						<img v-else src="@/assets/error.png" class="icon"/>
+						账号未被封禁
+					</li>
 				</template>
 			</ul>
 		</div>
@@ -30,11 +43,11 @@
 			<label class="protocal">
 				<input type="checkbox" v-model="checkd" @change="change" value="1" style="margin-right: 7px;" />
 				我已阅读并同意“
-				<a href="/writeOff.html?step=protocal" target="_blank">注销协议</a>”
+				<a  @click="jump('/writeOff.html?step=protocal')" >注销协议</a>”
 			</label>
 			<div class="error" v-if="error">请勾选我已阅读并同意“注销协议”</div>
 		</div>
-		<div class="error mt1" v-if="!canNext">该账号目前处于封禁状态，不可注销</div>
+		<div class="error mt1" v-if="!canNext && step == 3">该账号目前处于封禁状态，不可注销</div>
 		<button class="btnSubmit" v-else-if="step == 4" @click="next">开始注销</button>
 		<button class="btnSubmit" v-else @click="next">下一步</button>
 	</div>
@@ -47,7 +60,7 @@ export default {
 			checkd: [],
 			error: false,
 			status: "",
-			is_safety: 1, //是否处于安全状态
+			is_safety: 0, //是否处于安全状态
 			is_dispute: 1, //是否账户纠纷
 			is_banned: 1, //是否账户封禁
 		};
@@ -57,7 +70,17 @@ export default {
 			return this.is_safety && this.is_dispute && this.is_banned;
 		},
 	},
+	mounted(){
+		if(this.step == 3){
+			this.getUserStatus();
+		}
+	},
 	methods: {
+		jump(url){
+			console.log('jump',url)
+			// window.open(url)
+			window.location.href = url
+		},
 		change() {
 			this.error = false;
 		},
@@ -68,7 +91,7 @@ export default {
 					if (!this.checkd.length) {
 						this.error = true;
 					} else {
-						this.getUserStatus();
+						this.$emit("next",'3');
 					}
 					break;
 				case "3": //  获取用户的登录方式
@@ -93,24 +116,24 @@ export default {
 					this.is_safety = res.data.is_safety;
 					this.is_dispute = res.data.is_dispute;
 					this.is_banned = res.data.is_banned;
-					this.$emit("next");
+					
 				}
 			});
 		},
 		getUserLoginType() {
-			// this.$get(this.API["userOffStatus"]).then((res) => {
-			// 	if (res.status === 0) {
-			// 		if(res.data.is_bind_mobile){
-						// this.$emit('next',5)
-			// 		}else{
+			this.$get(this.API["userOffStatus"]).then((res) => {
+				if (res.status === 0) {
+					if(res.data.is_bind_mobile){
+						this.$emit('next','verify')
+					}else{
 						this.$emit('next',4)
-			// 		}
-			// 	}
-			// });
+					}
+				}
+			});
 		},
 		startUserOffSubmit(){
-			let reasons  = localStorage.getItem('reasons')
-      let elseR = localStorage.getItem('elseReason')
+			let reasons  = sessionStorage.getItem('reasons')
+      let elseR = sessionStorage.getItem('elseReason')
 			this.$post(this.API["userOffSubmit"],{
 				type:reasons,
 				remove_remark:elseR,
@@ -187,11 +210,17 @@ a {
 	font-size: 16px;
 	line-height: 22px;
 	color: #303133;
+	padding-left: 0;
 }
 .content li.title1:not(:last-child) {
 	margin-bottom: 25px;
 }
 .mt1 {
 	margin-top: 19px;
+}
+.icon{
+	display: inline-block;
+	vertical-align: sub;
+	width: 18px;
 }
 </style>

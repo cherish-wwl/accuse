@@ -26,7 +26,9 @@ const api = {
   // 取消注销
   userOffCancel:'/user/v2/close/cancel',
   // 确认注销
-  userOffConfirm: '/user/v2/close/confirm'
+  userOffConfirm: '/user/v2/close/confirm',
+  // 发送验证
+  sendCode:'/user/v2/info/sendCode'
 }
 
 export default api

@@ -35,8 +35,8 @@ export default {
       //   return this.reasons[e]
       // })
       // console.log(arr,this.elseReason)
-      localStorage.setItem('reasons', this.checked.join(','))
-      localStorage.setItem('elseReason', this.elseReason)
+      sessionStorage.setItem('reasons', this.checked.join(','))
+      sessionStorage.setItem('elseReason', this.elseReason)
       this.$emit('next')
     }
   }

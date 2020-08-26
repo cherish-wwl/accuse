@@ -10,19 +10,58 @@
 			</ul>
 		</div>
     <div class="tools" v-if="passed" >
-      <button class="btn">撤销注销</button>
-      <button class="btn">确定注销</button>
+      <button class="btn" @click="cancel">撤销注销</button>
+      <button class="btn" @click="submit">确定注销</button>
     </div>
+     <pop-up :textMap="msg" :time="2" v-if="showDialog" @closeCallback="closeWindow"></pop-up>
 	</div>
 </template>
 <script>
+
+import { CCloseWindow,CLogout } from '../../../utils/webViewJavascriptBridge'
 export default {
 	props: {
 		passed: {
 			type: Boolean,
 			default: true,
-		},
-	},
+    },
+    eliminate_id:{
+      type: String,
+			default: '0',
+    }
+  },
+  data(){
+    return{
+      showDialog:false,
+      msg: {
+        text1: '撤销注销成功 ~',
+        text2: ''
+      },
+    }
+  },
+  methods:{
+    cancel(){
+      this.$post(this.API["userOffCancel"],{eliminateId:this.eliminate_id}).then((res) => {
+				if (res.status === 0) {
+          this.showDialog = true;
+          this.msg.text1 = '撤销注销成功 ~';
+				}
+			});
+    },
+    submit(){
+      this.$post(this.API["userOffConfirm"],{eliminateId:this.eliminate_id}).then((res) => {
+				if (res.status === 0) {
+         this.showDialog = true;
+          this.msg.text1 = '账号注销成功 ~';
+          CLogout();
+				}
+			});
+      
+    },
+    closeWindow(){
+      CCloseWindow();
+    }
+  }
 };
 </script>
 <style scoped>

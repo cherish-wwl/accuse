@@ -40,7 +40,28 @@ const pages = {
       filename: 'writeOff.html',
       title: '注销账户',
       chunks: ['chunk-vendors', 'chunk-common', 'writeOff']
-   }
+   },
+   shop:{
+      entry: 'src/entrys/shop.js',
+      template: 'public/shop.html',
+      filename: 'shop.html',
+      title: '',
+      chunks: ['chunk-vendors', 'chunk-common', 'shop']
+    },
+    shopRecord:{
+      entry: 'src/entrys/shopRecord.js',
+      template: 'public/shopRecord.html',
+      filename: 'shopRecord.html',
+      title: '交易记录',
+      chunks: ['chunk-vendors', 'chunk-common', 'shopRecord']
+    },
+    shopSuccess:{
+      entry: 'src/entrys/shopSuccess.js',
+      template: 'public/shopSuccess.html',
+      filename: 'shopSuccess.html',
+      title: '交易成功',
+      chunks: ['chunk-vendors', 'chunk-common', 'shopSuccess']
+    }
   }
 
     
