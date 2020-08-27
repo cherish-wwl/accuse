@@ -8,6 +8,10 @@ body {
   margin: 0 auto;
   height: 100%;
 }
+.swiper-container {
+  width: 100%;
+  /* height: 500px; */
+}
 
 .content .panel {
   display: flex;
@@ -23,6 +27,7 @@ body {
 .content .sectionLeft {
   margin-right: 5%;
   text-align: center;
+  width: 350px;
 }
 
 .content .panel .part1Text {

@@ -5,8 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>搞笑段子圈</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.css">
   <link href="./css/common.css" rel="stylesheet" type="text/css">
   <link href="./css/download.css" rel="stylesheet" type="text/css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
 </head>
 
 <body>
@@ -20,9 +25,36 @@
       </header>
       <div class="panel">
         <div class="sectionLeft">
-          <div class="bgImage">
-            <img src="./images/panel02-m1.png" />
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="bgImage">
+                  <img src="./images/panel02-m1.png" />
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="bgImage">
+                  <img src="./images/panel02-m1.png" />
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="bgImage">
+                  <img src="./images/panel02-m1.png" />
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="bgImage">
+                  <img src="./images/panel02-m1.png" />
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="bgImage">
+                  <img src="./images/panel02-m1.png" />
+                </div>
+              </div>
+            </div>
           </div>
+          
         </div>
         <div class="sectionRight">
           <h1>搞笑段子圈</h1>
@@ -54,5 +86,16 @@
         <li>xxxxxxxXX@xxxxx.com</li>
       </ul>
     </footer>
+    <script>
+      var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        loop: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+      });
+    </script>
   </div>
 </body>
