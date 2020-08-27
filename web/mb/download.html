@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>搞笑段子圈</title>
+
+  <link href="./css/common.css" rel="stylesheet" type="text/css">
+  <link href="./css/download.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div class="panel panel01 blue_header_bg">
+    <header class="header flex-between" style="padding-right: 30px;">
+      <div class="flex">
+        <img class="logo" src="./images/logo.png">
+        <div class="brand">
+          <p class="title">搞笑段子圈</p>
+          <p class="subTitle">塞满笑料的圈子</p>
+        </div>
+      </div>
+      <div class="menu-icon" id="menuIcon" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+      </div>
+    </header>
+    <div class=" mobile">
+      <div class="inner">
+        <div class="outer-m">
+          <img class="bg" width="270" src="./images/moblie.png" />
+          <div class="mb">
+            <img src="./images/panel01-m2.png" />
+          </div>
+          
+        </div>
+        <div class="inner-m">
+          <img class="bg" width="270" src="./images/moblie-s.png" />
+          <div class="mb">
+            <img src="./images/panel01-m1.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text_center">
+      <button class="btn"><a>下载搞笑段子</a></button>
+    </div>
+    <div id="mask" style="display: none;">
+      <ul class="menus">
+        <li><a href="./userProtocal.html">用户协议</a></li>
+        <li><a href="./privacyProtocal.html">隐私协议</a></li>
+        <li><a href="./about.html">关于我们</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+<script>
+  function toggleMenu(e){
+    console.log(e)
+    var dom = document.getElementById('menuIcon').classList;
+    if(dom.contains('active')){
+      dom.remove("active");
+      document.getElementById('mask').style.display = "none";
+    }else{
+      dom.add("active");
+      document.getElementById('mask').style.display = "block";
+    }
+  }
+</script>
+
+</html>

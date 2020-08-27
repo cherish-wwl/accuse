@@ -1,0 +1,161 @@
+
+.panel {
+  position: relative;
+  min-height: 720px;
+  overflow: hidden;
+}
+
+.panel01 .logo {
+  position: absolute;
+  top: 9%;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.panel01 .logo-img {
+  width: 110px;
+  height: 110px;
+  box-shadow: 0 0 15px 2px #e6f2ff;
+  border-radius: 28px;
+}
+
+.panel01 .brand-name {
+  font-family: zcoolqingkehuangyouti;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 40px;
+  line-height: 40px;
+  letter-spacing: 5px;
+  color: #303133;
+  white-space: nowrap;
+  margin: 17px 0 22px;
+}
+
+.panel01 .slogan {
+  font-family: PingFangSC;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 10px;
+  color: #303133;
+}
+
+.panel01 .download {
+  margin-top: 26px;
+}
+
+.panel01 .download .btn {
+  background: none;
+  border: none;
+  border-radius: 7px;
+}
+
+.panel01 .mobile .outer-m,
+.panel01 .mobile .inner-m {
+  position: absolute;
+  bottom: 0
+}
+
+.panel01 .mobile .outer-m {
+  left: 60%;
+  transform: translateX(-50%);
+  z-index: 9;
+}
+
+.panel01 .mobile .outer-m .bg {
+  height: 335px;
+}
+
+.panel01 .mobile .inner-m {
+  left: 40%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.panel01 .mobile .mb img {
+  width: 100%;
+}
+
+.panel01 .mobile .mb {
+  position: absolute;
+  top: 50px;
+  left: 39px;
+  right: 45px;
+  bottom: 0;
+}
+
+
+.panel:not(.panel01) .slogan {
+  text-align: center;
+  padding: 44px 0 26px;
+}
+
+.panel .slogan h1 {
+  font-family: PingFangSC;
+  font-size: 45px;
+  line-height: 53px;
+  letter-spacing: 16.0714px;
+  color: #303133;
+  font-weight: normal;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.panel .slogan h4 {
+  font-family: PingFangSC;
+  font-size: 22px;
+  line-height: 26px;
+  color: #303133;
+  line-height: 1.2;
+  font-weight: normal;
+}
+
+.panel .mobile {
+  text-align: center;
+}
+
+.panel .mobile .inner {
+  padding: 0;
+  background-color: #fff;
+  border-top-right-radius: 41px;
+  border-top-left-radius: 41px;
+  display: inline-block;
+  height: 551px;
+  overflow: hidden;
+  margin-bottom: -5px;
+}
+
+.panel .mobile .inner img {
+  width: 340px;
+}
+
+.panel02 {
+  background-color: #90C2FF;
+}
+
+.panel03 {
+  background-color: #FFDB90;
+}
+
+.panel04 {
+  background-color: #90FFD9;
+}
+
+footer {
+  background: #303133;
+  padding: 34px 0;
+  text-align: center;
+}
+
+footer p {
+  font-family: PingFangSC;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #F5F7FA;
+  mix-blend-mode: normal;
+  opacity: 0.7;
+}
+
+footer .mb-2 {
+  margin-bottom: 20px;
+}

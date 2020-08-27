@@ -1,0 +1,135 @@
+
+html,body{
+  height: 100%;
+}
+.content {
+  /* width: 1200px; */
+  margin: 0 auto;
+  height: 100%;
+}
+
+.content .panel {
+  display: flex;
+  justify-content: center;
+  padding:150px 0;
+  align-items: center;
+}
+
+.inner{
+  height: 100%;
+}
+
+.bgImageBanner {
+  background-image: url(../images/panel1_bg.png);
+  background-repeat: no-repeat;
+  /* background-position: center; */
+  background-size: 100% 100%;
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom: 0;
+  filter: blur(10px);
+  opacity: .65;
+  z-index: -1;
+}
+
+
+.content .sectionLeft {
+  margin-right: 20px;
+  text-align: center;
+}
+
+.content .panel .part1Text {
+  letter-spacing: 13px;
+  font-size: 20px;
+  margin-top: 25px;
+}
+
+.content .panel .panel1LeftBtm {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.content .panel .panel1LeftBtm .downloadImg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 15px;
+}
+
+.content .panel .panel1LeftBtm .downloadImg>img {
+  width: 162px;
+  height: 42px;
+}
+
+.content .panel .panel1LeftBtm .wecode {
+  padding: 3px;
+  background-color: #fff;
+  border-radius: 8px;
+  height: 110px;
+}
+
+.content .sectionRight {
+  margin-left: 70px;
+  /* position: relative; */
+}
+
+.content .bgImage {
+  background: #fff;
+  border-radius: 40px;
+}
+
+.content .bgImage img {
+  width: 343px;
+}
+
+.content .slogan1 {
+  font-family: PingFangSC;
+  font-size: 64px;
+  line-height: 75px;
+  letter-spacing: 16.0714px;
+  color: #303133;
+}
+
+.content .slogan2 {
+  font-family: PingFangSC;
+  font-size: 36px;
+  line-height: 42px;
+  color: #303133;
+  font-weight: 300;
+  margin-top: 30px;
+}
+
+.content .inner .sectionRight {
+  position: relative;
+  margin-left: 0;
+  margin-right: 124px;
+}
+
+.content .inner .sectionRight img {
+  border: 1px solid #f4f2f5;
+  border-radius: 26px;
+}
+
+.content .inner .inner-bgImage {
+  position: absolute;
+  left: 0;
+  z-index: 0;
+  top: 56px;
+  opacity: .9;
+  padding: 18px 16.75px;
+  border-radius: 44px;
+  background: #fff;
+}
+
+.content .inner .outer-bgImage {
+  background: #fff;
+  z-index: 9;
+  position: relative;
+  left: 120px;
+  top: 0;
+  padding: 18px 16.75px;
+  border-radius: 44px;
+}

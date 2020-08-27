@@ -1,0 +1,90 @@
+.panel01 .mobile  {
+  position: relative;
+  height: 460px;
+  overflow: hidden;
+}
+
+.inner {
+  content: "";
+  position: absolute;
+  width: 1000px;
+  height: 1000px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #693DFF 0%, #0D5EFF 100%);
+  border-radius: 50%;
+  overflow: hidden;
+}
+.panel01 .mobile .outer-m,
+.panel01 .mobile .inner-m {
+  position: absolute;
+  bottom: 0
+}
+
+.panel01 .mobile .outer-m {
+  left: 55%;
+  transform: translateX(-50%);
+  z-index: 9;
+}
+
+.panel01 .mobile .outer-m .bg {
+  height: 445px;
+}
+
+.panel01 .mobile .inner-m {
+  left: 45%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+.panel01 .mobile .inner-m .bg {
+  height: 410px;
+}
+.panel01 .mobile .mb img {
+  width: 100%;
+}
+
+.panel01 .mobile .mb {
+  position: absolute;
+  top: 50px;
+  left: 39px;
+  right: 45px;
+  bottom: 0;
+}
+.btn{
+  background: linear-gradient(90deg, #693DFF 0%, #0D5EFF 100%);
+  border-radius: 80px;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: right;
+  color: #FFFFFF;
+  border:none;
+  padding:11px 50px;
+  margin-top: 40px;
+}
+
+#mask{
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.5);
+  padding-top: 100px;
+  text-align: center;
+}
+
+#mask .menus a{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 34px;
+  text-align: right;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+#mask .menus li{
+  margin-bottom: 50px;
+}

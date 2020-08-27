@@ -1,0 +1,167 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  /* width: 1200px; */
+  margin: 0 auto;
+}
+.blue_bg.container {
+  background: linear-gradient(90deg, #693DFF 0%, #0D5EFF 100%);
+  height: 100%;
+  padding: 20px 16px
+}
+.content .panel {
+  display: flex;
+  justify-content: center;
+  height: 800px;
+  align-items: center;
+}
+
+.bg2 {
+  background-color: rgb(240, 240, 240);
+}
+
+.bg3 {
+  background-color: #fff5de;
+}
+
+.bg4 {
+  background-color: rgb(234, 222, 255);
+}
+
+.bgImageBanner {
+  background-image: url(../images/panel1_bg.png);
+  background-repeat: no-repeat;
+  /* background-position: center; */
+  background-size: 100% 100%;
+}
+
+
+.content .sectionLeft {
+  margin-right: 20px;
+  text-align: center;
+}
+
+.content .panel .part1Text {
+  letter-spacing: 13px;
+  font-size: 20px;
+  margin-top: 25px;
+}
+
+.content .panel .panel1LeftBtm {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.content .panel .panel1LeftBtm .downloadImg {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 15px;
+}
+
+.content .panel .panel1LeftBtm .downloadImg>img {
+  width: 162px;
+  height: 42px;
+}
+
+.content .panel .panel1LeftBtm .wecode {
+  padding: 3px;
+  background-color: #fff;
+  border-radius: 8px;
+  height: 110px;
+}
+
+.content .sectionRight {
+  margin-left: 70px;
+  /* position: relative; */
+}
+
+.content .bgImage {
+  background: #fff;
+  border-radius: 40px;
+}
+
+.content .bgImage img {
+  width: 343px;
+}
+
+.content .slogan1 {
+  font-family: PingFangSC;
+  font-size: 64px;
+  line-height: 75px;
+  letter-spacing: 16.0714px;
+  color: #303133;
+}
+
+.content .slogan2 {
+  font-family: PingFangSC;
+  font-size: 36px;
+  line-height: 42px;
+  color: #303133;
+  font-weight: 300;
+  margin-top: 30px;
+}
+
+.content .bgImageBanner .sectionRight {
+  position: relative;
+  margin-left: 0;
+  margin-right: 124px;
+}
+
+.content .bgImageBanner .sectionRight img {
+  border: 1px solid #f4f2f5;
+  border-radius: 26px;
+}
+
+.content .bgImageBanner .inner-bgImage {
+  position: absolute;
+  left: 0;
+  z-index: 0;
+  top: 56px;
+  opacity: .9;
+  padding: 18px 16.75px;
+  border-radius: 44px;
+  background: #fff;
+}
+
+.content .bgImageBanner .outer-bgImage {
+  background: #fff;
+  z-index: 9;
+  position: relative;
+  left: 120px;
+  top: 0;
+  padding: 18px 16.75px;
+  border-radius: 44px;
+}
+
+.footer {
+  background-color: #303133;
+  color: #F5F7FA;
+  padding-top: 36px;
+  padding-bottom: 50px;
+  text-align: center;
+  letter-spacing: 1.5px;
+  font-size: 24px;
+  font-family: PingFangSC;
+  font-weight: 300;
+}
+
+.footer>p {
+  opacity: 0.8;
+}
+
+.footer .line2 {
+  margin-top: 6px;
+}
+
+.footer .line3 {
+  margin-top: 30px;
+}
+
+.footer .line4 {
+  margin-top: 16px;
+}

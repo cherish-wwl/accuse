@@ -1,0 +1,29 @@
+.content{
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding:0 16px ;
+  margin-top: 20px;
+}
+
+
+article{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 25px;
+  color: #606266;
+}
+.about-title{
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 45px;
+  color: #000000;
+  margin-bottom: 12px;
+}
+.concact{
+  font-size: 14px;
+  line-height: 20px;
+  color: #606266;
+  margin-bottom: 19px;
+}
