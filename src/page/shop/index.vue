@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <nav class="text-right"> <a href="/shopRecord.html" target="_blank">交易记录</a></nav>
+    <nav class="text-right"> <a href="shopRecord.html" target="_blank">交易记录</a></nav>
     <div class="userInfo">
       <img class="avatar" :src="avatar_img" />
       <div class="center">
@@ -79,7 +79,7 @@ export default {
   },
   computed:{
     avatar_img(){
-      console.log(this.userInfo.avatar_img.thumb_uris)
+      // console.log(this.userInfo.avatar_img.thumb_uris)
       return this.userInfo.avatar_img.thumb_uris['2x']['0']
     }
   },
@@ -91,7 +91,7 @@ export default {
       if (!this.checkd.length) {
         this.error = true;
       } else {
-        window.open('/shopSuccess.html')
+        window.open('shopSuccess.html')
       }
     },
     getUserInfo() {

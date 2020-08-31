@@ -48,7 +48,7 @@ export default {
 			} else {
 				this.step++;
 			}
-			let url = "/writeOff.html?step=" + this.step;
+			let url = window.location.pathname +"?step=" + this.step;
 			window.location.href = url;
     },
     getStatus(){

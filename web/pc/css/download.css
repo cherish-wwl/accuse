@@ -21,7 +21,7 @@ body {
 }
 
 .bg5 {
-  background: linear-gradient(90deg, #693DFF 0%, #0D5EFF 100%);
+  /* background: linear-gradient(90deg, #693DFF 0%, #0D5EFF 100%); */
 }
 
 .content .sectionLeft {
@@ -57,8 +57,9 @@ body {
 }
 
 .content .bgImage {
-  /* background: #fff;
-  border-radius: 40px; */
+  background: #fff;
+  border-radius: 40px;
+  overflow: hidden;
 }
 
 .content .bgImage img {
