@@ -43,7 +43,7 @@
 			<label class="protocal">
 				<input type="checkbox" v-model="checkd" @change="change" value="1" style="margin-right: 7px;" />
 				我已阅读并同意“
-				<a  @click="jump('/writeOff.html?step=protocal')" >注销协议</a>”
+				<a  @click="jump('?step=protocal')" >注销协议</a>”
 			</label>
 			<div class="error" v-if="error">请勾选我已阅读并同意“注销协议”</div>
 		</div>
@@ -77,9 +77,9 @@ export default {
 	},
 	methods: {
 		jump(url){
-			console.log('jump',url)
+			// console.log('jump',url)
 			// window.open(url)
-			window.location.href = url
+			window.location.href = window.location.pathname + url
 		},
 		change() {
 			this.error = false;

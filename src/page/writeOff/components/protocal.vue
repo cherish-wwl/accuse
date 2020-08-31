@@ -14,6 +14,13 @@
 		<p>帐号注销后您已发布的所有内容将转为匿名发布，如需删除内容，请在申请注销前自行处理。 注销帐号并不代表帐号注销前的帐号行为和相关责任得到豁免或减轻。</p>
 	</div>
 </template>
+<script>
+export default {
+	mounted(){
+		document.title="注销协议"
+	}
+}
+</script>
 <style scoped>
 p {
 	font-style: normal;
