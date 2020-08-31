@@ -71,7 +71,7 @@ export default {
 		},
 	},
 	mounted(){
-		if(this.step == 3){
+		if(this.step == 3 || this.step == 4){
 			this.getUserStatus();
 		}
 	},

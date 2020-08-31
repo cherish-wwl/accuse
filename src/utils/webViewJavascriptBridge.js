@@ -62,7 +62,7 @@ function getJWT() {
     } else if (isAndroid && window.JSBridge) {
       const JWT = window.JSBridge.getJWT();
       if (JWT) {
-        sessionStorage.setItem("Authorization", JWT);
+        sessionStorage.setItem("Authorization", 'Bearer '+JWT);
         resolve("Bearer " + JWT);
       } else {
         console.log("error", window.JSBridge);
